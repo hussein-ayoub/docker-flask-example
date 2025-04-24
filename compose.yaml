@@ -33,7 +33,6 @@ x-assets: &default-assets
       - "NODE_ENV=${NODE_ENV:-production}"
   env_file:
     - ".env"
-  profiles: ["assets"]
   restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
   stop_grace_period: "0"
   tty: true
@@ -52,7 +51,6 @@ services:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
       # POSTGRES_DB: "${POSTGRES_DB}"
     image: "postgres:17.4-bookworm"
-    profiles: ["postgres"]
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
@@ -65,7 +63,6 @@ services:
           cpus: "${DOCKER_REDIS_CPUS:-0}"
           memory: "${DOCKER_REDIS_MEMORY:-0}"
     image: "redis:7.4.2-bookworm"
-    profiles: ["redis"]
     restart: "${DOCKER_RESTART_POLICY:-unless-stopped}"
     stop_grace_period: "3s"
     volumes:
@@ -86,7 +83,6 @@ services:
       retries: 3
     ports:
       - "${DOCKER_WEB_PORT_FORWARD:-127.0.0.1:8000}:${PORT:-8000}"
-    profiles: ["web"]
 
   worker:
     <<: *default-app
@@ -96,7 +92,6 @@ services:
         limits:
           cpus: "${DOCKER_WORKER_CPUS:-0}"
           memory: "${DOCKER_WORKER_MEMORY:-0}"
-    profiles: ["worker"]
 
   js:
     <<: *default-assets
