@@ -20,7 +20,7 @@ x-app: &default-app
   stop_grace_period: "3s"
   tty: true
   volumes:
-    - "${DOCKER_WEB_VOLUME:-./public:/app/public}"
+    - "./public:/app/public"
 
 x-assets: &default-assets
   build:
