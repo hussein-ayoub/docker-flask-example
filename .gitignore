@@ -6,7 +6,6 @@
 public/*
 !public/.keep
 
-.env*
 !.env.example
 docker-compose.override.yml
 
